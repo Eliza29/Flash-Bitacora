@@ -24,6 +24,7 @@
       </div>
     </div>
   </section>
+  <!-- Añadiendo FAB (Fixed Action Button)-->
   <footer>
     <div class="fixed-action-btn horizontal">
       <a class="btn-floating btn-large red">
@@ -31,7 +32,8 @@
       </a>
       <ul>
         <li>
-          <a class="btn-floating red">
+          <!-- Modal Trigger -->
+          <a class="btn-floating red btn modal-trigger" href="#modal1">
             <i class="material-icons">chat</i>
           </a>
         </li>
@@ -51,6 +53,29 @@
           </a>
         </li>
       </ul>
+    </div>
+    <!-- <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Modal</a> -->
+    <!-- Modal Structure -->
+    <div id="modal1" class="modal">
+      <div class="modal-content">
+        <div class="row">
+          <form class="col s12">
+            <div class="row">
+              <div class="input-field col s12">
+                <input id="first_name" type="text" class="validate">
+                <label for="first_name">Titulo</label>
+              </div>
+              <div class="input-field col s12">
+                <textarea id="textarea1" class="materialize-textarea"></textarea>
+                <label for="textarea1">Message</label>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+      </div>
     </div>
   </footer>
 
