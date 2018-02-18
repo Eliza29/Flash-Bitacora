@@ -38,24 +38,23 @@
           </a>
         </li>
         <li>
-          <a class="btn-floating yellow darken-1">
+          <a class="btn-floating yellow darken-1 btn modal-trigger" href="#modal2">
             <i class="material-icons">add_a_photo</i>
           </a>
         </li>
         <li>
-          <a class="btn-floating green">
+          <a class="btn-floating green btn modal-trigger" href="#modal3">
             <i class="material-icons">poll</i>
           </a>
         </li>
         <li>
-          <a class="btn-floating blue">
+          <a class="btn-floating blue btn modal-trigger" href="#modal4">
             <i class="material-icons">play_arrow</i>
           </a>
         </li>
       </ul>
     </div>
-    <!-- <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Modal</a> -->
-    <!-- Modal Structure -->
+    <!-- Modal Añadir comentario-->
     <div id="modal1" class="modal">
       <div class="modal-content">
         <div class="row">
@@ -74,9 +73,93 @@
         </div>
       </div>
       <div class="modal-footer">
-        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+        <button class="btn waves-effect waves-light orange modal-close" type="submit" name="action">Submit
+          <i class="material-icons right">send</i>
+        </button>
       </div>
     </div>
+    <!-- modal 2 subir imagen -->
+    <div id="modal2" class="modal">
+      <div class="modal-content">
+        <div class="row">
+          <form class="col s12">
+            <div class="row">
+              <div class="input-field col s12">
+                <input id="title2" type="text" class="validate">
+                <label for="title2">Titulo</label>
+              </div>
+              <div class="col s12">
+                <div class="col s2">
+                  <a class="waves-effect waves-light btn left">imagen</a>
+                </div>
+                <div class="col s9 offset-s1">
+                  <input id="input-image" type="text" class="validate">
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn waves-effect waves-light yellow modal-close" type="submit" name="action">Submit
+          <i class="material-icons right">send</i>
+        </button>
+
+      </div>
+    </div>
+    <!-- Modal Añadir fecha de evento-->
+    <div id="modal3" class="modal">
+        <div class="modal-content">
+          <div class="row">
+            <form class="col s12">
+              <div class="row">
+                <div class="input-field col s12">
+                  <input id="title-event" type="text" class="validate">
+                  <label for="title-event">Evento</label>
+                </div>
+                <div class="input-field col s12">
+                  <textarea id="textarea2" class="materialize-textarea"></textarea>
+                  <label for="textarea2">¿En que fecha se realizó el evento?</label>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn waves-effect waves-light green modal-close" type="submit" name="action">Submit
+            <i class="material-icons right">send</i>
+          </button>
+        </div>
+      </div>
+       <!-- modal 4 subir video y/o audio -->
+    <div id="modal4" class="modal">
+        <div class="modal-content">
+          <div class="row">
+            <form class="col s12">
+              <div class="row">
+                <div class="input-field col s12">
+                  <input id="title4" type="text" class="validate">
+                  <label for="title4">Titulo</label>
+                </div>
+                <div class="col s12">
+                  <div class="col s4">
+                    <a class="waves-effect waves-light btn left">video o audio</a>
+                  </div>
+                  <div class="col s8">
+                    <input id="input-audio" type="text" class="validate">
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn waves-effect waves-light blue modal-close" type="submit" name="action">Submit
+            <i class="material-icons right">send</i>
+          </button>
+  
+        </div>
+      </div>
   </footer>
 
   <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
