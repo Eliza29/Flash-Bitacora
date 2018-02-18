@@ -1,0 +1,12 @@
+header{
+    /* background-image: url(../assets/images/mountain.jpg);
+    background-size: cover; */
+    width: 100%;
+    height: 22vh;
+    padding: 10px;
+    margin-bottom: 20px;
+    color: white;
+}
+.post{
+    padding: 10px 20px;
+}
