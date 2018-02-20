@@ -1,0 +1,22 @@
+{
+  "name": "flash-bitacora",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Eliza29/Flash-Bitacora.git"
+  },
+  "author": "Daniela Gonzales y Elizabeth Segura",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Eliza29/Flash-Bitacora/issues"
+  },
+  "homepage": "https://github.com/Eliza29/Flash-Bitacora#readme",
+  "dependencies": {
+    "express": "^4.16.2"
+  }
+}

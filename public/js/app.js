@@ -1,6 +1,21 @@
-$(document).ready(() => {
+function initMap() {
+  // BEGIN.getMap();
+  console.log('fhgsgfhg');
+}
+
+let BEGIN = () => {
   // the "href" attribute of the modal trigger must specify the modal ID that wants to be triggered
   $('.modal').modal();
+
+  // inicializa pickaDate
+  $('.datepicker').pickadate({
+    selectMonths: true, // Creates a dropdown to control month
+    selectYears: 15, // Creates a dropdown of 15 years to control year,
+    today: 'Today',
+    clear: 'Clear',
+    close: 'Ok',
+    closeOnSelect: false // Close upon selecting a date,
+  });
 
   // seleccionando elementos del DOM
   let titleCommit = $('#first_name');
@@ -9,12 +24,15 @@ $(document).ready(() => {
   let btnPostImg = $('#btn-send-img');
   let titleImage = $('#title2');
   let inputFile = $('#input-file');
-  let srcImg;
   let titleVideo = $('#title4');
   let inputVideo = $('#input-video');
   let btnPostVideo = $('#btn-post-video');
   let inputUrlImg = $('#input-url-img');
   let inputUrlVideo = $('#input-url-video');
+  let titleEvent = $('#title-event');
+  let inputEvent = $('#input-date');
+  let btnPostEvent = $('#btn-post-event');
+  let srcImg;  
   let typeVideo;
   let typeAudio;
   let srcVideo;
@@ -27,6 +45,8 @@ $(document).ready(() => {
   let inputFileValid = false;
   let titleVideoValid = false;
   let inputVideoValid = false;
+  let titleEventValid = false;
+  let inputEventValid = false;
 
   // funcionalidad para activar y desactivar botón
 
@@ -60,7 +80,7 @@ $(document).ready(() => {
 
   // funcionalidad para validar todos los campos para publicar texto
 
-  let allPostTextValid = () => { debugger;
+  let allPostTextValid = () => { 
     if (titleCommitValid && textAreaValid) {
       activeButton(btnPostText);
     } else {
@@ -69,7 +89,7 @@ $(document).ready(() => {
   };
 
   // funcionalidad para agregar una nota de texto
-  let isTitleCommitValid = () => { debugger;
+  let isTitleCommitValid = () => { 
     titleCommitValid = validateTextTitle(titleCommit);
     if (titleCommitValid) {
       allPostTextValid();
@@ -79,7 +99,7 @@ $(document).ready(() => {
   };
 
   // funcionalidad para validar textArea 
-  let isTextAreaValid = () => { debugger;
+  let isTextAreaValid = () => { 
     if ($.trim(textAreaCommit.val()).length !== 0) {
       textAreaValid = true;
       allPostTextValid();
@@ -91,7 +111,7 @@ $(document).ready(() => {
 
   // funcionalidad para mostrar y añadir el post de texto en el DOM
 
-  let createPost = (title, textarea) => { debugger;
+  let createPost = (title, textarea) => { 
     let divPost = `
       <div class="col s12 box white mb">
         <div class="z-depth-2 post">
@@ -152,7 +172,7 @@ $(document).ready(() => {
     if (window.File && window.FileReader && window.FileList && window.Blob) {
       function handleFileSelect(event) {
         function fileInformation(theFile) {
-          return function (evt) {
+          return function(evt) {
             // Render thumbnail.
             srcImg = evt.target.result;
             typeVideo = theFile.type;
@@ -192,7 +212,7 @@ $(document).ready(() => {
 
   // funcionalidad para publicar videos o audios
 
-  let createPostVideo = () => { debugger;
+  let createPostVideo = () => { 
     let divPost;
     if (typeVideo !== undefined && typeVideo.match('video.*')) {
       divPost = `
@@ -229,7 +249,7 @@ $(document).ready(() => {
     inputVideoValid = false;
   };
 
-  let allInputsVideoValid = () => { debugger;
+  let allInputsVideoValid = () => { 
     if (titleVideoValid && inputVideoValid) {
       activeButton(btnPostVideo);
     } else {
@@ -237,7 +257,7 @@ $(document).ready(() => {
     }
   };
 
-  let getVideo = (event) => { debugger;
+  let getVideo = (event) => { 
     if (window.File && window.FileReader && window.FileList && window.Blob) {
       function handleVideoSelect(event) {
         function videoInformation(theFile) {
@@ -278,7 +298,7 @@ $(document).ready(() => {
     }
   };
 
-  let isVideoValid = () => { debugger;
+  let isVideoValid = () => { 
     if ($('#input-url-video').val()) {
       inputVideoValid = true;
       allInputsVideoValid();
@@ -288,12 +308,94 @@ $(document).ready(() => {
     }
   };
 
-  let isTitleVideoValid = () => { debugger;
+  let isTitleVideoValid = () => { 
     titleVideoValid = validateTextTitle(titleVideo);
     if (titleVideoValid) {
       allInputsVideoValid();
     } else {
       desactiveButton(btnPostVideo);
+    }
+  };
+
+  // funcionalidad para publicar la fecha de un evento
+  let allInputsEventValid = () => {
+    if (titleEventValid && inputEventValid) {
+      activeButton(btnPostEvent);
+    } else {
+      desactiveButton(btnPostEvent);
+    }
+  };
+
+  let getMap = () => {
+    let mapObj = document.getElementById('map');    
+    let directionsService = new google.maps.DirectionsService;
+    let directionsDisplay = new google.maps.DirectionsRenderer;
+    if (navigator.geolocation) {
+      let success = (position) => {
+        let latitude = position.coords.latitude;
+        let longitude = position.coords.longitude;
+        var googlePos = new google.maps.LatLng(latitude, longitude);
+        var mapOptions = {
+          zoom: 15,
+          center: googlePos,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        var googleMap = new google.maps.Map(mapObj, mapOptions);
+        var markerOpt = {
+          map: googleMap,
+          position: googlePos,
+          title: 'Hi , I am here',
+          animation: google.maps.Animation.DROP
+        };
+        var googleMarker = new google.maps.Marker(markerOpt);
+      };
+
+      let error = () => {
+        alert('Ha habido un problema al buscar tu ubicación');
+      };
+
+      navigator.geolocation.getCurrentPosition(success, error);
+
+    } else {
+      console.log('no podemos acceder a tu ubicación');
+    }
+  };
+
+  let showEvent = () => {
+    let divPost = `
+    <div class="col s12 box white mb">
+      <div class="z-depth-2 post">
+        <h5>${titleEvent.val()}</h5>
+        <div class='row'>
+          <p class='col s12 m10 offset-m1'>${inputEvent.val()}</p>
+        </div>
+        <div id='map' class='col s10 height'></div>
+      </div>
+    </div>
+    `;
+    $('#reference').after(divPost);
+    getMap();      
+    reset(titleEvent, inputEvent, btnPostEvent);
+    titleEventValid = false;
+    inputEventValid = false;
+  };
+
+  let isEventValid = () => { 
+    if ($(inputEvent).val()) {
+      inputEventValid = true;
+      allInputsEventValid();
+    } else {
+      inputEventValid = false;
+      desactiveButton(btnPostEvent);
+    }
+  };
+
+  let isTitleEventValid = () => {
+    titleEventValid = validateTextTitle(titleEvent);
+    if (titleEventValid) {
+      allInputsVideoValid();
+    } else {
+      desactiveButton(btnPostEvent);
     }
   };
 
@@ -309,4 +411,9 @@ $(document).ready(() => {
   inputVideo.on('change', getVideo);
   $('#input-url-video').on('change', isVideoValid);
   btnPostVideo.on('click', createPostVideo);
-});
+  titleEvent.on('input', isTitleEventValid);
+  inputEvent.on('change', isEventValid);
+  btnPostEvent.on('click', showEvent);
+};
+
+$(document).ready(BEGIN);
