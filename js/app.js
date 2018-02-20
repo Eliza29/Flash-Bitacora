@@ -13,6 +13,8 @@ $(document).ready(() => {
   let titleVideo = $('#title4');
   let inputVideo = $('#input-video');
   let btnPostVideo = $('#btn-post-video');
+  let inputUrlImg = $('#input-url-img');
+  let inputUrlVideo = $('#input-url-video');
   let typeVideo;
   let typeAudio;
   let srcVideo;
@@ -36,6 +38,15 @@ $(document).ready(() => {
     btn.addClass('disabled');
   };
 
+  // funcionalidad para reiniciar las funcionalidades
+  let reset = (title, input, btn) => {
+    $(title).val('');
+    $(title).removeClass('valid');
+    $(input).val('');
+    $(input).removeClass('valid');
+    desactiveButton(btn);
+  };
+
   // funcionalidad para validar los títulos de la bitácora
 
   let validateTextTitle = (textTitle) => {
@@ -49,7 +60,7 @@ $(document).ready(() => {
 
   // funcionalidad para validar todos los campos para publicar texto
 
-  let allPostTextValid = () => {
+  let allPostTextValid = () => { debugger;
     if (titleCommitValid && textAreaValid) {
       activeButton(btnPostText);
     } else {
@@ -58,7 +69,7 @@ $(document).ready(() => {
   };
 
   // funcionalidad para agregar una nota de texto
-  let isTitleCommitValid = () => {
+  let isTitleCommitValid = () => { debugger;
     titleCommitValid = validateTextTitle(titleCommit);
     if (titleCommitValid) {
       allPostTextValid();
@@ -68,9 +79,8 @@ $(document).ready(() => {
   };
 
   // funcionalidad para validar textArea 
-  let isTextAreaValid = () => {
-    console.log(textAreaCommit.val());
-    if ($.trim(textAreaCommit.val().length !== 0)) {
+  let isTextAreaValid = () => { debugger;
+    if ($.trim(textAreaCommit.val()).length !== 0) {
       textAreaValid = true;
       allPostTextValid();
     } else {
@@ -80,7 +90,8 @@ $(document).ready(() => {
   };
 
   // funcionalidad para mostrar y añadir el post de texto en el DOM
-  let createPost = (title, textarea) => {
+
+  let createPost = (title, textarea) => { debugger;
     let divPost = `
       <div class="col s12 box white mb">
         <div class="z-depth-2 post">
@@ -90,6 +101,9 @@ $(document).ready(() => {
       </div>
     `;
     $('#reference').after(divPost);
+    reset(titleCommit, textAreaCommit, btnPostText);
+    titleCommitValid = false;
+    textAreaValid = false;
   };
 
   let showPost = (event) => {
@@ -111,6 +125,9 @@ $(document).ready(() => {
       </div>
     `;
     $('#reference').after(divPost);
+    reset(titleImage, inputUrlImg, btnPostImg);
+    titleImageValid = false;
+    inputFileValid = false;
   };
 
   let allInputsImageValid = () => {
@@ -175,16 +192,6 @@ $(document).ready(() => {
 
   // funcionalidad para publicar videos o audios
 
-  let resetVideo = () => {
-    $(titleVideo).val('');
-    $('#input-url-video').val('');
-    desactiveButton(btnPostVideo);
-    // srcAudio = undefined;
-    // srcVideo = undefined;
-    // typeVideo = undefined;
-    // typeAudio = undefined;
-  };
-
   let createPostVideo = () => { debugger;
     let divPost;
     if (typeVideo !== undefined && typeVideo.match('video.*')) {
@@ -192,10 +199,12 @@ $(document).ready(() => {
       <div class="col s12 box white mb">
         <div class="z-depth-2 post">
           <h5>${titleVideo.val()}</h5>
-          <div class='s11'>
-            <video class="responsive-video" controls>
-              <source src="${srcVideo}" type="${typeVideo}">
-            </video>
+          <div class='row'>
+            <div class='col s12 m10 offset-m1'>
+              <video class="responsive-video" controls>
+                <source src="${srcVideo}" type="${typeVideo}">
+              </video>
+            </div>
           </div>
         </div>
       </div>
@@ -205,8 +214,8 @@ $(document).ready(() => {
       <div class="col s12 box white mb">
         <div class="z-depth-2 post">
           <h5>${titleVideo.val()}</h5>
-          <div class='s11'>
-            <audio src="${srcAudio}" type='${typeAudio}' class='responsive-video' controls>
+          <div class='row'>
+            <audio src="${srcAudio}" type='${typeAudio}' class='col s12 m12' controls>
               <p>Tu navegador no soporta este audio</p>
             </audio>
           </div>
@@ -215,10 +224,12 @@ $(document).ready(() => {
     `;
     }
     $('#reference').after(divPost);
-    resetVideo();
+    reset(titleVideo, inputUrlVideo, btnPostVideo);
+    titleVideoValid = false;
+    inputVideoValid = false;
   };
 
-  let allInputsVideoValid = () => {
+  let allInputsVideoValid = () => { debugger;
     if (titleVideoValid && inputVideoValid) {
       activeButton(btnPostVideo);
     } else {
@@ -267,7 +278,7 @@ $(document).ready(() => {
     }
   };
 
-  let isVideoValid = () => {
+  let isVideoValid = () => { debugger;
     if ($('#input-url-video').val()) {
       inputVideoValid = true;
       allInputsVideoValid();
@@ -277,7 +288,7 @@ $(document).ready(() => {
     }
   };
 
-  let isTitleVideoValid = () => {
+  let isTitleVideoValid = () => { debugger;
     titleVideoValid = validateTextTitle(titleVideo);
     if (titleVideoValid) {
       allInputsVideoValid();
