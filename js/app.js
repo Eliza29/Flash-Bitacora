@@ -9,13 +9,22 @@ $(document).ready(() => {
   let btnPostImg = $('#btn-send-img');
   let titleImage = $('#title2');
   let inputFile = $('#input-file');
-  let srcImg;  
+  let srcImg;
+  let titleVideo = $('#title4');
+  let inputVideo = $('#input-video');
+  let btnPostVideo = $('#btn-post-video');
+  let typeVideo;
+  let typeAudio;
+  let srcVideo;
+  let srcAudio;
 
   // variables centinelas
   let titleCommitValid = false;
   let textAreaValid = false;
   let titleImageValid = false;
   let inputFileValid = false;
+  let titleVideoValid = false;
+  let inputVideoValid = false;
 
   // funcionalidad para activar y desactivar botón
 
@@ -70,7 +79,7 @@ $(document).ready(() => {
     }
   };
 
-  // funcionalidad para mostrar y ñadir el post de texto en el DOM
+  // funcionalidad para mostrar y añadir el post de texto en el DOM
   let createPost = (title, textarea) => {
     let divPost = `
       <div class="col s12 box white mb">
@@ -89,8 +98,8 @@ $(document).ready(() => {
   };
 
   // funcionalidad para postear una imagen
+  
   let createPostImg = () => {
-    console.log(srcImg);
     let divPost = `
       <div class="col s12 box white mb">
         <div class="z-depth-2 post">
@@ -101,11 +110,19 @@ $(document).ready(() => {
         </div>
       </div>
     `;
-    $('#reference').after(divPost);    
+    $('#reference').after(divPost);
   };
 
-  let isImageValid = () => { debugger;
-    if ($('input.file-path').val()) {
+  let allInputsImageValid = () => {
+    if (titleImageValid && inputFileValid) {
+      activeButton(btnPostImg);
+    } else {
+      desactiveButton(btnPostImg);
+    }
+  };
+
+  let isImageValid = () => {
+    if ($('#input-url-img').val()) {
       inputFileValid = true;
       allInputsImageValid();
     } else {
@@ -114,14 +131,14 @@ $(document).ready(() => {
     }
   };
 
-  let getImage = (event) => { debugger;
+  let getImage = (event) => {
     if (window.File && window.FileReader && window.FileList && window.Blob) {
       function handleFileSelect(event) {
         function fileInformation(theFile) {
-          return function(evt) {
+          return function (evt) {
             // Render thumbnail.
             srcImg = evt.target.result;
-            console.log(srcImg);
+            typeVideo = theFile.type;
           };
         };
 
@@ -141,21 +158,13 @@ $(document).ready(() => {
           }
         });
       }
-      handleFileSelect(event);    
+      handleFileSelect(event);
     } else {
       alert('The File APIs are not fully supported in this browser.');
-    }    
-  };
-
-  let allInputsImageValid = () => {
-    if (titleImageValid && inputFileValid) {
-      activeButton(btnPostImg);
-    } else {
-      desactiveButton(btnPostImg);
     }
   };
 
-  let isTitleImageValid = () => { debugger;
+  let isTitleImageValid = () => {
     titleImageValid = validateTextTitle(titleImage);
     if (titleImageValid) {
       allInputsImageValid();
@@ -164,12 +173,129 @@ $(document).ready(() => {
     }
   };
 
+  // funcionalidad para publicar videos o audios
+
+  let resetVideo = () => {
+    $(titleVideo).val('');
+    $('#input-url-video').val('');
+    desactiveButton(btnPostVideo);
+    // srcAudio = undefined;
+    // srcVideo = undefined;
+    // typeVideo = undefined;
+    // typeAudio = undefined;
+  };
+
+  let createPostVideo = () => { debugger;
+    let divPost;
+    if (typeVideo !== undefined && typeVideo.match('video.*')) {
+      divPost = `
+      <div class="col s12 box white mb">
+        <div class="z-depth-2 post">
+          <h5>${titleVideo.val()}</h5>
+          <div class='s11'>
+            <video class="responsive-video" controls>
+              <source src="${srcVideo}" type="${typeVideo}">
+            </video>
+          </div>
+        </div>
+      </div>
+    `;
+    } else if (typeAudio !== undefined && typeAudio.match('audio.*')) {
+      divPost = `
+      <div class="col s12 box white mb">
+        <div class="z-depth-2 post">
+          <h5>${titleVideo.val()}</h5>
+          <div class='s11'>
+            <audio src="${srcAudio}" type='${typeAudio}' class='responsive-video' controls>
+              <p>Tu navegador no soporta este audio</p>
+            </audio>
+          </div>
+        </div>
+      </div>
+    `;
+    }
+    $('#reference').after(divPost);
+    resetVideo();
+  };
+
+  let allInputsVideoValid = () => {
+    if (titleVideoValid && inputVideoValid) {
+      activeButton(btnPostVideo);
+    } else {
+      desactiveButton(btnPostVideo);
+    }
+  };
+
+  let getVideo = (event) => { debugger;
+    if (window.File && window.FileReader && window.FileList && window.Blob) {
+      function handleVideoSelect(event) {
+        function videoInformation(theFile) {
+          return function(evt) {
+            srcVideo = undefined;
+            typeVideo = undefined;
+            srcAudio = undefined;
+            typeAudio = undefined;
+            if (theFile.type.match('video.*')) {
+              srcVideo = evt.target.result;
+              typeVideo = theFile.type;
+            } else if (theFile.type.match('audio.*')) {
+              srcAudio = evt.target.result;
+              typeAudio = theFile.type;
+            }
+          };
+        };
+
+        var files = event.target.files; // FileList object
+        console.log(files);
+        // Loop through the FileList and render image files as thumbnails.
+        [...files].forEach(element => {
+          // Only process image files.
+          if (element.type.match('video.*') || element.type.match('audio.*')) {
+            var reader = new FileReader();
+
+            // Closure to capture the file information.
+            reader.onload = videoInformation(element);
+
+            // Read in the image file as a data URL.
+            reader.readAsDataURL(element);
+          }
+        });
+      }
+      handleVideoSelect(event);
+    } else {
+      alert('The File APIs are not fully supported in this browser.');
+    }
+  };
+
+  let isVideoValid = () => {
+    if ($('#input-url-video').val()) {
+      inputVideoValid = true;
+      allInputsVideoValid();
+    } else {
+      inputVideoValid = false;
+      desactiveButton(btnPostVideo);
+    }
+  };
+
+  let isTitleVideoValid = () => {
+    titleVideoValid = validateTextTitle(titleVideo);
+    if (titleVideoValid) {
+      allInputsVideoValid();
+    } else {
+      desactiveButton(btnPostVideo);
+    }
+  };
+
   // asociando eventos a elementos del DOM
   titleCommit.on('input', isTitleCommitValid);
   textAreaCommit.on('input', isTextAreaValid);
   btnPostText.on('click', showPost);
   titleImage.on('input', isTitleImageValid);
+  $('input.file-path').on('change', isImageValid);
   inputFile.on('change', getImage);
   btnPostImg.on('click', createPostImg);
-  $('input.file-path').on('change', isImageValid);
+  titleVideo.on('input', isTitleVideoValid);
+  inputVideo.on('change', getVideo);
+  $('#input-url-video').on('change', isVideoValid);
+  btnPostVideo.on('click', createPostVideo);
 });
