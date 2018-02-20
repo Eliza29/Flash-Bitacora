@@ -1,1 +1,0 @@
-# FLASH BITÁCORA
