@@ -84,11 +84,16 @@
                 <label for="title2">Titulo</label>
               </div>
               <div class="col s12">
-                <div class="col s2">
-                  <a class="waves-effect waves-light btn left">imagen</a>
-                </div>
-                <div class="col s9 offset-s1">
-                  <input id="input-image" type="text" class="validate">
+                <div class="col s12">
+                  <div class="file-field input-field">
+                    <div class="btn">
+                      <span>Imagen</span>
+                      <input type="file" id="input-file">
+                    </div>
+                    <div class="file-path-wrapper">
+                      <input class="file-path validate" type="text">
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -96,7 +101,7 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button class="btn waves-effect waves-light yellow darken-1 modal-close" type="submit" name="action">Publicar
+        <button class="btn waves-effect waves-light yellow darken-1 modal-close disabled" type="submit" name="action" id="btn-send-img">Publicar
           <i class="material-icons right">send</i>
         </button>
 
@@ -104,57 +109,57 @@
     </div>
     <!-- Modal Añadir fecha de evento-->
     <div id="modal3" class="modal">
-        <div class="modal-content">
-          <div class="row">
-            <form class="col s12">
-              <div class="row">
-                <div class="input-field col s12">
-                  <input id="title-event" type="text" class="validate">
-                  <label for="title-event">Evento</label>
-                </div>
-                <div class="input-field col s12">
-                  <textarea id="textarea2" class="materialize-textarea"></textarea>
-                  <label for="textarea2">¿En que fecha se realizó el evento?</label>
-                </div>
+      <div class="modal-content">
+        <div class="row">
+          <form class="col s12">
+            <div class="row">
+              <div class="input-field col s12">
+                <input id="title-event" type="text" class="validate">
+                <label for="title-event">Evento</label>
               </div>
-            </form>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button class="btn waves-effect waves-light green modal-close" type="submit" name="action">Publicar
-            <i class="material-icons right">send</i>
-          </button>
+              <div class="input-field col s12">
+                <textarea id="textarea2" class="materialize-textarea"></textarea>
+                <label for="textarea2">¿En que fecha se realizó el evento?</label>
+              </div>
+            </div>
+          </form>
         </div>
       </div>
-       <!-- modal 4 subir video y/o audio -->
+      <div class="modal-footer">
+        <button class="btn waves-effect waves-light green modal-close" type="submit" name="action">Publicar
+          <i class="material-icons right">send</i>
+        </button>
+      </div>
+    </div>
+    <!-- modal 4 subir video y/o audio -->
     <div id="modal4" class="modal">
-        <div class="modal-content">
-          <div class="row">
-            <form class="col s12">
-              <div class="row">
-                <div class="input-field col s12">
-                  <input id="title4" type="text" class="validate">
-                  <label for="title4">Titulo</label>
+      <div class="modal-content">
+        <div class="row">
+          <form class="col s12">
+            <div class="row">
+              <div class="input-field col s12">
+                <input id="title4" type="text" class="validate">
+                <label for="title4">Titulo</label>
+              </div>
+              <div class="col s12">
+                <div class="col s4">
+                  <a class="waves-effect waves-light btn left">video o audio</a>
                 </div>
-                <div class="col s12">
-                  <div class="col s4">
-                    <a class="waves-effect waves-light btn left">video o audio</a>
-                  </div>
-                  <div class="col s8">
-                    <input id="input-audio" type="text" class="validate">
-                  </div>
+                <div class="col s8">
+                  <input id="input-audio" type="text" class="validate">
                 </div>
               </div>
-            </form>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button class="btn waves-effect waves-light blue modal-close" type="submit" name="action">Publicar
-            <i class="material-icons right">send</i>
-          </button>
-  
+            </div>
+          </form>
         </div>
       </div>
+      <div class="modal-footer">
+        <button class="btn waves-effect waves-light blue modal-close" type="submit" name="action">Publicar
+          <i class="material-icons right">send</i>
+        </button>
+
+      </div>
+    </div>
   </footer>
 
   <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
